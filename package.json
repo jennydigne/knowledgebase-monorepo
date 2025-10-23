@@ -16,9 +16,20 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "npm@10.9.3",
+  "packageManager": "yarn@1.22.22",
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "nohoist": [
+"/react-native",
+"/react-native/",
+"/@react-native/",
+"/expo",
+"/expo/",
+"/whatwg-fetch",
+"/@react-native/virtualized-lists",
+"/react",
+"/react-dom"
+]  
 }
