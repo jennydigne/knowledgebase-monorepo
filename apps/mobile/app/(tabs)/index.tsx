@@ -11,10 +11,21 @@ type Block = {
   children: Child[];
 };
 
+type Category = {
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 type Article = {
   id: number;
   title: string;
   content: Block[];
+  category: Category;
 };
 
 export default function HomeScreen() {
@@ -24,7 +35,7 @@ export default function HomeScreen() {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const res = await fetch('http://192.168.0.19:1337/api/articles');
+        const res = await fetch('http://192.168.0.19:1337/api/articles?populate=category');
         const json = await res.json();
         setArticles(json.data);
       } catch (error) {
@@ -44,6 +55,7 @@ export default function HomeScreen() {
   const renderArticle = ({ item }: { item: Article }) => (
     <View style={styles.articleCard}>
       <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.category}>{item.category?.name}</Text>
       {item.content.map((block, i) => (
         <Text key={i} style={styles.content}>
           {block.children.map(child => child.text).join(' ')}
@@ -74,7 +86,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-    paddingVertical: 10, 
+    paddingVertical: 10,
   },
   articleCard: {
     marginBottom: 20,
@@ -91,5 +103,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#555'
   },
+  category: {
+    fontSize: 12,
+    color: '#888',
+    marginBottom: 10,
+  }
 });
 
