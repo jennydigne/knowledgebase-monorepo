@@ -28,6 +28,8 @@ type Article = {
   category: Category;
 };
 
+const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL
+
 export default function HomeScreen() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
@@ -35,7 +37,7 @@ export default function HomeScreen() {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const res = await fetch('http://192.168.0.19:1337/api/articles?populate=category');
+        const res = await fetch(`${BASE_URL}/api/articles?populate=category`);
         const json = await res.json();
         setArticles(json.data);
       } catch (error) {

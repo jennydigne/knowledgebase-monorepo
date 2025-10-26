@@ -1,5 +1,5 @@
 {
-  "name": "my-monorepo3",
+  "name": "knowledgebase-monorepo",
   "private": true,
   "scripts": {
     "build": "turbo run build",
